@@ -2,7 +2,7 @@ import { initTRPC } from "@trpc/server";
 import { RegisterSchema, AuthenticatedUserSchema } from "../../../domain";
 import { AuthService } from "../../../app/auth.service";
 
-export function authTRPCAdapter(
+export function AuthTRPCAdapter(
   authService: AuthService,
   t: ReturnType<typeof initTRPC.create>
 ) {

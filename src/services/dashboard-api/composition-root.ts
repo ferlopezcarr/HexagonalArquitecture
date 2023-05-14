@@ -5,7 +5,7 @@ import {
 } from "./infraestructure/adapters/drivens";
 import {
   AuthGuiAdapter,
-  authTRPCAdapter,
+  AuthTRPCAdapter,
 } from "./infraestructure/adapters/drivers";
 import { AuthService } from "./app/auth.service";
 
@@ -45,7 +45,7 @@ export const localTRPCCompose = () => {
   const repoQuerierStub = new UserRepositoryAdapter();
 
   // APP
-  const dashboardApiMock = new AuthService(
+  const authService = new AuthService(
     controlAuthenticatorStub,
     repoQuerierStub
   );
@@ -54,7 +54,7 @@ export const localTRPCCompose = () => {
   const t = initTRPC.create();
 
   // TRPC DRIVER
-  const authTRPCAdapterRouter = authTRPCAdapter(dashboardApiMock, t);
+  const authTRPCAdapterRouter = AuthTRPCAdapter(authService, t);
 
   const appRouter = t.mergeRouters(authTRPCAdapterRouter);
 
